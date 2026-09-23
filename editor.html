@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gravity | Create</title>
+
+    <link rel="stylesheet" href="gravity.css">
+    <link rel="icon" type="image/x-icon" href="assets/icon.png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lily+Script+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="main">
+    <div class="navbar">
+        <a href="index.html"><h1>Gravity</h1></a>
+        <!-- <a href=""><p>Save</p></a>
+        <a href="Gravitys.html"><p>Preview</p></a> -->
+    </div>
+
+    <div class="previewParent">
+        <div class="preview" onclick="usetool()">
+            <canvas></canvas>
+        </div>
+
+    </div><div class="editor">
+        <div class="settings notallowed" id="settings">
+            <h1>Tools:</h1>
+            <div class="tool" onclick="equip(this)" id="select"><i class="fa fa-mouse-pointer" aria-hidden="true"></i> Select</div>
+            <div class="tool" onclick="equip(this)" id="ball"><i class="fa fa-circle" aria-hidden="true"></i> Ball</div>
+            <div class="tool" onclick="equip(this)" id="planet"><i class="fa fa-circle-o" aria-hidden="true"></i> Planet</div>
+        
+            <h1>Options:</h1>
+
+            <div class="setting"><label><input id="gravity" type="checkbox" onchange="toggleOp(this)"> Gravity</label></div>
+            <div id="gravityOp" class="visible">
+                <input type="number" value="9.8">ms<sup>-1</sup>
+                <select>
+                    <option value=[0,1]>Up</option>
+                    <option value=[0,-1] selected>Down</option>
+                    <option value=[-1,0]>Left</option>
+                    <option value=[1,0]>Right</option>
+                </select>
+            </div>
+
+            <div class="setting"><label><input id="drag" type="checkbox" onchange="toggleOp(this)"> Air Resistance</label></div>
+            <div id="dragOp" class="visible">
+                Drag Coefficient: <input type="number" value="0.5">
+            </div>
+
+            <div class="setting"><label><input id="wall" type="checkbox"> Wall Collisions</label></div>
+            <div class="setting"><label><input id="collide" type="checkbox"> Object Collisions</label></div>
+            <div class="setting visible"><label><input id="transfer" type="checkbox"> Energy Transfer*</label></div>
+
+            <div class="setting"><label><input id="vvector" type="checkbox" onchange="toggleOp(this)"> Velocity Vectors</label></div>
+            <div id="vvectorOp" class="visible">
+                Scale of 1:<input type="number" value="10">
+            </div>
+
+            <div class="setting"><label><input id="avector" type="checkbox" onchange="toggleOp(this)"> Acceleration Vectors</label></div>
+            <div id="avectorOp" class="visible">
+                Scale of 1:<input type="number" value="20">
+            </div>
+
+            <br>
+        </div>
+        <div>
+            <div id="start" class="button" onclick="applySettings(); run(); selected=''; equip();"><i class="fa fa-play" aria-hidden="true"></i> Run</div>
+            <div id="stop" class="button red" onclick="stop()"><i class="fa fa-stop" aria-hidden="true"></i> Stop</div>
+            <div class="button" onclick="erase();"><i class="fa fa-eraser" aria-hidden="true"></i> Clear</div>
+            <div class="button" onclick="reset();"><i class="fa fa-repeat" aria-hidden="true"></i> Reset</div>
+            <div class="button" onclick="save();"><i class="fa fa-file" aria-hidden="true"></i> Save</div>
+            <div class="button" onclick="load();"><i class="fa fa-file-o" aria-hidden="true"></i> Load</div>
+            <a href="about AT3.pdf" target="_blank"><div class="button"><i class="fa fa-question" aria-hidden="true"></i> About</div></a>
+            <h1>Info:</h1>
+            Field: 10x6 m
+            <br>
+            Object Count: <span id="oCount">0</span>
+        </div>
+
+    </div>
+    </div>
+
+    <div class="savePopup" id='savePopup'>
+        <h2>Your Gravity code is...</h2>
+        <p id="saveBox">a</p>
+        <div class="button"><i class="fa fa-files-o" aria-hidden="true"></i> Copy</div>
+        <div class="button" onclick="document.getElementById('savePopup').style.display = 'none'; document.getElementById('main').classList.toggle('disabled')"><i class="fa fa-check" aria-hidden="true"></i> Ok</div>
+    </div>
+
+    <div class="savePopup" id='loadPopup'>
+        <!-- <h2>Upload your Gravity file</h2>
+        <input id="loadBox" type="file" class="file" onchange="updateFileInput()"></input>
+        <i class="fa fa-file fileIcon" aria-hidden="true"></i>
+        <p>thing.mp3</p>
+        <label for="loadBox">Select File</label>
+        <div class="button" onclick="loadv()"><i class="fa fa-check" aria-hidden="true"></i> Ok</div> -->
+        <h2>Enter your Gravity code.</h2>
+        <textarea id="loadBox"></textarea>
+        <div class="button" onclick="loadv()"><i class="fa fa-check" aria-hidden="true"></i> Ok</div>
+    </div>
+
+    <div class="selectPopup visible" id="selectPopup">
+        <label>x:<input type="number" id='x'></label><br>
+        <label>y:<input type="number" id='y'></label><br>
+        <label>speed:<input type="number" id='v'></label><br>
+        <label>direction:<input type="number" id='d'></label><br>
+        <label>radius:<input type="number" id='r'></label><br>
+        <label>hex:<input id='c' maxlength=7></label><br>
+        <button onclick="document.querySelector('#selectPopup').classList.add('visible')"><i class="fa fa-ban" aria-hidden="true"></i></button>
+        <button onclick="applySelect()"><i class="fa fa-check" aria-hidden="true"></i></button>
+    </div>
+
+    
+</body>
+</html>
+<script src='editor.js'></script>
+<script src='gravity.js'></script>

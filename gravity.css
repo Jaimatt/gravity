@@ -1,0 +1,367 @@
+:root {
+    --main: #116bf3;
+    --mainL: #5d9eff;
+    --mainEL: #c4dafc;
+    --grey: #ececec;
+    --dgrey: #c5c5c5;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+a {
+    color: unset;
+    text-decoration: unset;
+}
+body {
+    background-color: white;
+    color: black;
+    background-image: url('assets/back.png');
+    background-size: cover;
+    margin: 0;
+    overflow: hidden;
+    font-family: 'quicksand', sans-serif;
+}
+.nav {
+    width: 100%;
+    background-color: var(--main);
+}
+.nav h1 {
+    font-family: 'Lily Script One', cursive;
+    font-weight: 400;
+    font-size: 45px;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 0px;
+    color: white;
+}
+.navbar {
+    width: 100%;
+    background-color: var(--main);
+    height: 50px;
+}
+.navbar h1 {
+    font-family: 'Lily Script One', cursive;
+    font-weight: 400;
+    font-size: 25px;
+    margin-top: 0;
+    margin-bottom: 0px;
+    color: white;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: fit-content;
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+    vertical-align: top;
+}
+.navbar p {
+    display: inline-block;
+    font-family: 'quicksand', sans-serif;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: fit-content;
+    color: white;
+    height: 100%;
+    margin: 0;
+    vertical-align: top;
+    line-height: 50px;
+}
+.navbar h1:hover, .navbar p:hover {
+    background-color: var(--mainL);
+}
+.menu {
+    max-width: 700px;
+    width: calc(95vw - 20px);
+    padding: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+.menu h1 {
+    font-family: 'Lily Script One', cursive;
+    font-weight: 400;
+    font-size: 30px;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 0px;
+}
+.option {
+    position: relative;
+    width: 150px;
+    height: 100px;
+    display: inline-block;
+    border-radius: 20px;
+    border: var(--main) 2px solid;
+    overflow: hidden;
+    margin: 10px;
+    transition-duration: 300ms;
+    cursor: pointer;
+}
+.option:hover {
+    transform: translate(-5px, -5px);
+    box-shadow: 5px 5px 0px var(--main);
+}
+.option img {
+    width: 150px;
+    height: 100px;
+    z-index: 0;
+}
+.option p {
+    position: absolute;
+    z-index: 1;
+    bottom: -8px;
+    text-align: center;
+    width: 150px;
+    font-family: 'quicksand', sans-serif;
+    font-size: 20px;
+    font-weight: 900;
+    color: black;
+}
+.previewParent {
+    width: calc(70vw - 40px);
+    padding: 20px;
+    margin: 0;
+    height: calc(100vh - 50px - 40px);
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+}
+.editor {
+    height: calc(100vh - 50px - 40px);
+    vertical-align: top;
+    width: calc(30vw - 20px);
+    padding: 10px;
+    margin: 0;
+    display: inline-block;
+    overflow-y: scroll;
+}
+.preview {
+    height: calc((70vw - 40px) * 6/10);
+    background-color: var(--grey);
+    position: relative;
+    top: 50%;
+    transform: translate(0%, -50%);
+    background-image: url('assets/back2.png');
+    background-size: cover;
+    border: 2px solid var(--main);
+    border-radius: 40px;
+    overflow: hidden;
+}
+.nowview {
+    height: calc((70vw - 40px) * 6/10);
+    background-color: var(--grey);
+    position: relative;
+    background-image: url('assets/back2.png');
+    background-size: cover;
+    border: 2px solid var(--main);
+    border-radius: 40px;
+    overflow: hidden;
+}
+.editor h1 {
+    font-size: 20px;
+    font-family: 'Lily Script One', cursive;
+    font-weight: 400;
+}
+.tool, .button {
+    width: 90px;
+    border-radius: 5px;
+    height: 20px;
+    background-color: var(--grey);
+    font-family: 'quicksand', sans-serif;
+    display: inline-block;
+    vertical-align: top;
+    margin: 5px;
+    line-height: 20px;
+    padding: 5px;
+    cursor: pointer;
+    border: 2px var(--grey) solid;
+    transition-duration: 300ms;
+}
+.button {
+    background-color: var(--main);
+    color: white;
+    border-color: var(--main);
+}
+.red {
+    background-color: rgb(202, 0, 0);
+    border-color: rgb(202, 0, 0);
+}
+.tool:hover, .button:hover {
+    box-shadow: 3px 3px 4px rgba(0,0,0,0.5);
+}
+.tool.selected {
+    border: 2px var(--main) solid;
+}
+.setting {
+    font-family: 'quicksand', sans-serif;
+    margin-bottom: 0px;
+}
+.ball {
+    background-color: magenta;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    position: absolute;
+}
+canvas {
+    position: relative;
+    width: 100%;
+    height: calc((70vw - 40px) * 6/10);
+}
+.visible {
+    display: none;
+}
+.settings input[type=number], .settings select {
+    background-color: var(--grey);
+    border: 2px solid var(--grey);
+    height: 20px;
+    border-radius: 6px;
+    outline: none;
+    margin: 5px;
+    padding: 5px;
+    width: 60px;
+    box-sizing: unset;
+}
+.settings input[type=number]:hover, .settings select:hover, .settings input[type=number]:focus, .settings select:focus {
+    border: 2px solid var(--main);
+}
+.notallowed {
+    pointer-events: none;
+    opacity: 0.3;
+}
+
+.savePopup {
+    display: none;
+    width: 300px;
+    height: 200px;
+    padding: 20px;
+    background-color: var(--grey);
+    border: 3px solid var(--main);
+    border-radius: 30px;
+    /* box-shadow: 0px 0px 10px black; */
+    position: fixed;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+.savePopup h2 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.savePopup .fileIcon {
+    font-size: 35px;
+    margin-top: 10px;
+}
+.savePopup p {
+    width: 250px;
+    height: 100px;
+    padding: 5px;
+    border-radius: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    word-wrap: break-word;
+    overflow-y: scroll;
+    text-align: left;
+}
+.file {
+    opacity: 0;
+    width: 0.1px;
+    height: 0.1px;
+    position: absolute;
+  }
+.savePopup label {
+    width: 90px;
+    border-radius: 5px;
+    height: 20px;
+    background-color: var(--dgrey);
+    font-family: 'quicksand', sans-serif;
+    display: inline-block;
+    vertical-align: top;
+    margin: 5px;
+    line-height: 20px;
+    padding: 5px;
+    cursor: pointer;
+    border: 2px var(--dgrey) solid;
+    transition-duration: 300ms;
+}
+.savePopup label:hover {
+    box-shadow: 3px 3px 4px rgba(0,0,0,0.5);
+}
+  
+.savePopup textarea {
+    width: 250px;
+    height: 100px;
+    margin: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    word-wrap: break-word;
+    overflow-y: scroll;
+    text-align: left;
+    outline: none;
+    resize: none;
+    border: none;
+    font-family: 'quicksand', sans-serif;
+}
+.disabled {
+    pointer-events: none;
+    filter: opacity(0.5);
+}
+.selectPopup {
+    width: 130px;
+    height: 150px;
+    background-color: white;
+    border: 3px solid var(--main);
+    position: fixed;
+    top: 50px;
+    left: 50px;
+    padding: 10px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px black;
+    text-align: right;
+}
+.selectPopup label {
+    margin: 0;
+    line-height: 13px;
+    font-size: 13px;
+}
+.selectPopup input {
+    background-color: var(--grey);
+    border: 2px solid var(--grey);
+    height: 10px;
+    width: 10px;
+    border-radius: 6px;
+    outline: none;
+    padding: 3px;
+    width: 60px;
+}
+.selectPopup button {
+    font-size: 13px;
+    width: 50px;
+    border-radius: 8px;
+    height: 25px;
+    line-height: 15px;
+    background-color: var(--main);
+    font-family: 'quicksand', sans-serif;
+    display: inline-block;
+    vertical-align: top;
+    margin: 5px;
+    margin-top: 3px;
+    padding: 5px;
+    cursor: pointer;
+    border: 2px var(--main) solid;
+    transition-duration: 300ms;
+    text-align: center;
+    color: white;
+}
+.selectPopup button:hover {
+    box-shadow: 2px 2px 4px black;
+}
